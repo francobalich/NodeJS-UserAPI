@@ -1,5 +1,5 @@
 import { response } from 'express'
-export const getUser = async (req, res = response) => {
+export const getLogin = async (req, res = response) => {
   try {
     return res.status(404).send({
       id: '0',
@@ -12,7 +12,7 @@ export const getUser = async (req, res = response) => {
   }
 }
 
-export const postUser = async (req, res = response) => {
+export const postRegisterUser = async (req, res = response) => {
   try {
     return res.status(404).send({
       id: '0',
@@ -25,7 +25,7 @@ export const postUser = async (req, res = response) => {
   }
 }
 
-export const putUser = async (req, res = response) => {
+export const putModifiedUser = async (req, res = response) => {
   try {
     return res.status(404).send({
       id: '0',
