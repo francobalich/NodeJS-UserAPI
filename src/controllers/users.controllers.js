@@ -33,7 +33,6 @@ export const getLogin = async (req, res = response) => {
       name: usuario.name,
       surname: usuario.surname,
       email: usuario.email,
-      password: usuario.password,
       token
     })
   } catch (err) {
@@ -67,7 +66,6 @@ export const postRegisterUser = async (req, res = response) => {
       name: usuario.name,
       surname: usuario.surname,
       email: usuario.email,
-      password: usuario.password,
       token
     })
   } catch (err) {
@@ -77,7 +75,7 @@ export const postRegisterUser = async (req, res = response) => {
 }
 
 export const putModifiedUser = async (req, res = response) => {
-  const id  = req.params.id
+  const id = req.params.id
   const { password } = req.body
   try {
     let usuario = await Usuario.findById(id)
@@ -98,15 +96,14 @@ export const putModifiedUser = async (req, res = response) => {
 
     // Generar JWT
     const token = await generarJWT(usuario.id, usuario.mail)
-    const usuarioActualizado = await Usuario.findByIdAndUpdate(id,nuevoUsuario,{new:true})
+    const usuarioActualizado = await Usuario.findByIdAndUpdate(id, nuevoUsuario, { new: true })
     return res.status(201).json({
       status: true,
       uid: usuarioActualizado.id,
       name: usuarioActualizado.name,
       surname: usuarioActualizado.surname,
       email: usuarioActualizado.email,
-      password: usuarioActualizado.password,
-      message:"The user was modificated.",
+      message: "The user was modificated.",
       token
     })
   } catch (err) {
@@ -116,7 +113,7 @@ export const putModifiedUser = async (req, res = response) => {
 }
 
 export const deleteUser = async (req, res = response) => {
-  const id  = req.params.id
+  const id = req.params.id
   try {
     let usuario = await Usuario.findById(id)
     if (!usuario) {
@@ -133,8 +130,7 @@ export const deleteUser = async (req, res = response) => {
       name: usuarioEliminado.name,
       surname: usuarioEliminado.surname,
       email: usuarioEliminado.email,
-      password: usuarioEliminado.password,
-      message:"The user was eliminated.",
+      message: "The user was eliminated.",
     })
   } catch (err) {
     console.log(err)
