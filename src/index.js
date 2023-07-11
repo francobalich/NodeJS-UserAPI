@@ -4,6 +4,8 @@ import { userRouter } from './routes/users.routes.js'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import express from 'express'
+import { imgsRouter } from './routes/imgs.routes.js'
+
 dotenv.config()
 
 const PORT = process.env.PORT || 3000
@@ -21,6 +23,7 @@ app.use(corsConfig)
 
 // Rutas
 app.use('/api/', userRouter)
+app.use('/api/', imgsRouter)
 
 // Endpoints
 app.use('/', (req, res) => {
