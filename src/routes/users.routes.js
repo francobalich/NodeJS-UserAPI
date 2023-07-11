@@ -7,6 +7,6 @@ userRouter.get('/', getLogin)
 
 userRouter.post('/', postRegisterUser)
 
-userRouter.put('/', putModifiedUser)
+userRouter.put('/:id', putModifiedUser)
 
-userRouter.delete('/', deleteUser)
+userRouter.delete('/:id', deleteUser)
