@@ -1,5 +1,5 @@
 import { check } from 'express-validator'
-import { getLogin, postRegisterUser, putModifiedUser, deleteUser, revalidarToken, putImagesUser } from '../controllers/users.controllers.js'
+import { getLogin, postRegisterUser, putModifiedUser, deleteUser, revalidarToken, putImagesUser, postReadImages } from '../controllers/users.controllers.js'
 import { Router } from 'express'
 import { validarCampos } from '../middleware/validarCampos.js'
 import { validarJWT } from '../middleware/validarJwt.js'
@@ -7,6 +7,7 @@ import { validarJWT } from '../middleware/validarJwt.js'
 export const userRouter = Router()
 
 userRouter.get('/renew', validarJWT, revalidarToken)
+userRouter.post('/images', postReadImages)
 
 userRouter.post('/login',
   [

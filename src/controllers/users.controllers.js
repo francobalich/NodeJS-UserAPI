@@ -192,3 +192,26 @@ export const putImagesUser = async (req, res = response) => {
     res.status(401).send('Some error happened')
   }
 }
+
+export const postReadImages = async (req, res = response) => {
+  const { email } = req.body
+  try {
+    const usuario = await Usuario.findOne({ email })
+    if (!usuario) {
+      return res.status(400).json({
+        status: false,
+        msg: "No existe un usuario con ese email."
+      })
+    }
+
+    return res.status(201).json({
+      status: true,
+      uid: usuario.id,
+      email: usuario.email,
+      images:usuario.images,
+    })
+  } catch (err) {
+    console.log(err)
+    res.status(401).send('Some error happened')
+  }
+}
