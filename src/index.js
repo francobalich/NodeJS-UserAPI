@@ -1,8 +1,9 @@
 import { corsConfig } from './middleware/corsConfig.js'
+import { dbConnection } from './database/config.js'
 import { userRouter } from './routes/users.routes.js'
-import express from 'express'
-import dotenv from 'dotenv'
 import cors from 'cors'
+import dotenv from 'dotenv'
+import express from 'express'
 dotenv.config()
 
 const PORT = process.env.PORT || 3000
@@ -10,6 +11,9 @@ const PORT = process.env.PORT || 3000
 // Configuración del server
 const app = express()
 app.use(express.json())
+
+// Base de datos
+dbConnection()
 
 // Configuración del cors
 app.use(cors())
