@@ -7,7 +7,6 @@ import { validarJWT } from '../middleware/validarJwt.js'
 export const userRouter = Router()
 
 userRouter.get('/renew', validarJWT, revalidarToken)
-userRouter.post('/images', postReadImages)
 
 userRouter.post('/login',
   [
@@ -25,7 +24,7 @@ userRouter.post('/register',
     validarCampos
   ], postRegisterUser)
 
-userRouter.put('/:id',
+userRouter.put('/user/:id',
   [
     check('name', 'El nombre es obligatorio.').not().isEmpty(),
     check('surname', 'El apellido es obligatorio.').not().isEmpty(),
@@ -34,10 +33,12 @@ userRouter.put('/:id',
     validarCampos
   ], putModifiedUser)
 
-userRouter.put('/imgs/:id',
+userRouter.put('/images',
   [
-    check('imgs', 'El nombre es obligatorio.').not().isEmpty(),
+    check('images', 'Las imagenes son obligatorias.').not().isEmpty(),
     validarCampos
   ], putImagesUser)
+
+userRouter.post('/images', postReadImages)
 
 userRouter.delete('/:id', deleteUser)
