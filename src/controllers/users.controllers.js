@@ -116,11 +116,25 @@ export const putModifiedUser = async (req, res = response) => {
 }
 
 export const deleteUser = async (req, res = response) => {
+  const id  = req.params.id
   try {
-    return res.status(404).send({
-      id: '0',
-      state: false,
-      respuesta: 'API Not Implemented (API User)'
+    let usuario = await Usuario.findById(id)
+    if (!usuario) {
+      return res.status(400).json({
+        status: false,
+        message: "No existe un usuario con ese ID."
+      })
+    }
+    const usuarioEliminado = await Usuario.findByIdAndDelete(id)
+
+    return res.status(201).json({
+      status: true,
+      uid: usuarioEliminado.id,
+      name: usuarioEliminado.name,
+      surname: usuarioEliminado.surname,
+      email: usuarioEliminado.email,
+      password: usuarioEliminado.password,
+      message:"The user was eliminated.",
     })
   } catch (err) {
     console.log(err)
