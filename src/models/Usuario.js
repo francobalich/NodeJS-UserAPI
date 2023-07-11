@@ -15,7 +15,11 @@ const UsuarioSchema = Schema({
         unique: true
     },
     images: {
-        type: [String],
+        type: [{
+            id: { type: String },
+            src: { type: String },
+            alt: { type: String },
+        }],
         required: true,
         unique: true
     },
