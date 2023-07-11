@@ -33,7 +33,7 @@ export const getLogin = async (req, res = response) => {
       name: usuario.name,
       surname: usuario.surname,
       email: usuario.email,
-      images:usuario.images,
+      images: usuario.images,
       token
     })
   } catch (err) {
@@ -67,7 +67,7 @@ export const postRegisterUser = async (req, res = response) => {
       name: usuario.name,
       surname: usuario.surname,
       email: usuario.email,
-      images:usuario.images,
+      images: usuario.images,
       token
     })
   } catch (err) {
@@ -105,7 +105,7 @@ export const putModifiedUser = async (req, res = response) => {
       name: usuarioActualizado.name,
       surname: usuarioActualizado.surname,
       email: usuarioActualizado.email,
-      images:usuarioActualizado.images,
+      images: usuarioActualizado.images,
       msg: "The user was modificated.",
       token
     })
@@ -157,7 +157,6 @@ export const putImagesUser = async (req, res = response) => {
   const { images, email } = req.body
   try {
     let usuario = await Usuario.findOne({ email })
-
     if (!usuario) {
       return res.status(400).json({
         status: false,
@@ -165,14 +164,13 @@ export const putImagesUser = async (req, res = response) => {
       })
     }
     const nuevoUsuario = {
-      id:usuario.id,
-      name:usuario.name,
-      surname:usuario.surname,
-      email:usuario.email,
-      password:usuario.password,
-      images:images,
+      id: usuario.id,
+      name: usuario.name,
+      surname: usuario.surname,
+      email: usuario.email,
+      password: usuario.password,
+      images: images,
     }
-    //console.log(nuevoUsuario);
     // Generar JWT
     const token = await generarJWT(usuario.id, usuario.mail)
     const usuarioActualizado = await Usuario.findByIdAndUpdate(nuevoUsuario.id, nuevoUsuario, { new: true })
@@ -182,7 +180,7 @@ export const putImagesUser = async (req, res = response) => {
       name: usuarioActualizado.name,
       surname: usuarioActualizado.surname,
       email: usuarioActualizado.email,
-      images:usuarioActualizado.images,
+      images: usuarioActualizado.images,
       msg: "The images were modificated.",
       token
     })
@@ -207,7 +205,7 @@ export const postReadImages = async (req, res = response) => {
       status: true,
       uid: usuario.id,
       email: usuario.email,
-      images:usuario.images,
+      images: usuario.images,
     })
   } catch (err) {
     console.log(err)
