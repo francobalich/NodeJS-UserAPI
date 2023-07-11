@@ -33,6 +33,7 @@ export const getLogin = async (req, res = response) => {
       name: usuario.name,
       surname: usuario.surname,
       email: usuario.email,
+      images:usuario.images,
       token
     })
   } catch (err) {
@@ -66,6 +67,7 @@ export const postRegisterUser = async (req, res = response) => {
       name: usuario.name,
       surname: usuario.surname,
       email: usuario.email,
+      images:usuario.images,
       token
     })
   } catch (err) {
@@ -103,6 +105,7 @@ export const putModifiedUser = async (req, res = response) => {
       name: usuarioActualizado.name,
       surname: usuarioActualizado.surname,
       email: usuarioActualizado.email,
+      images:usuarioActualizado.images,
       msg: "The user was modificated.",
       token
     })
