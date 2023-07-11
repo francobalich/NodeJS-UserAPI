@@ -25,7 +25,7 @@ export const getLogin = async (req, res = response) => {
     }
 
     // Generar JWT
-    const token = await generarJWT(usuario.id, usuario.name)
+    const token = await generarJWT(usuario.id, usuario.mail)
 
     return res.status(201).json({
       status: true,
@@ -60,7 +60,7 @@ export const postRegisterUser = async (req, res = response) => {
     await usuario.save()
 
     // Generar JWT
-    const token = await generarJWT(usuario.id, usuario.name)
+    const token = await generarJWT(usuario.id, usuario.mail)
     return res.status(201).json({
       status: true,
       uid: usuario.id,
@@ -109,7 +109,7 @@ export const revalidarToken = async(req,res=response)=>{
   res.status(200).json({
       status:true,
       uid,
-      name,
+      email,
       token,
   })
 }
