@@ -6,7 +6,7 @@ import { validarJWT } from '../middleware/validarJwt.js'
 
 export const userRouter = Router()
 
-userRouter.get('/renew',validarJWT,revalidarToken)
+userRouter.get('/renew', validarJWT, revalidarToken)
 
 userRouter.get('/',
   [
