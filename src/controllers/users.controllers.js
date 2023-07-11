@@ -4,11 +4,37 @@ import { Usuario } from '../models/Usuario.js'
 import bcrypt from 'bcryptjs'
 
 export const getLogin = async (req, res = response) => {
+  const { email, password } = req.body
   try {
-    return res.status(404).send({
-      id: '0',
-      state: false,
-      respuesta: 'API Not Implemented (API User)'
+    const usuario = await Usuario.findOne({ email })
+    if (!usuario) {
+      return res.status(400).json({
+        status: false,
+        message: "No existe un usuario con ese email."
+      })
+    }
+
+    // Confirmar los passwords
+    const validPassword = bcrypt.compareSync(password, usuario.password)
+
+    if (!validPassword) {
+      return res.status(400).json({
+        status: false,
+        message: "La contraseña es incorrecta."
+      })
+    }
+
+    // Generar JWT
+    const token = await generarJWT(usuario.id, usuario.name)
+
+    return res.status(201).json({
+      status: true,
+      uid: usuario.id,
+      name: usuario.name,
+      surname: usuario.surname,
+      email: usuario.email,
+      password: usuario.password,
+      token
     })
   } catch (err) {
     console.log(err)
