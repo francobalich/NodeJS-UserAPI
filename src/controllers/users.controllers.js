@@ -77,11 +77,37 @@ export const postRegisterUser = async (req, res = response) => {
 }
 
 export const putModifiedUser = async (req, res = response) => {
+  const id  = req.params.id
+  const { password } = req.body
   try {
-    return res.status(404).send({
-      id: '0',
-      state: false,
-      respuesta: 'API Not Implemented (API User)'
+    let usuario = await Usuario.findById(id)
+    if (!usuario) {
+      return res.status(400).json({
+        status: false,
+        message: "No existe un usuario con ese ID."
+      })
+    }
+    const nuevoUsuario = {
+      ...req.body,
+      id
+    }
+
+    // Encriptar contraseña
+    const salt = bcrypt.genSaltSync()
+    nuevoUsuario.password = bcrypt.hashSync(password, salt)
+
+    // Generar JWT
+    const token = await generarJWT(usuario.id, usuario.mail)
+    const usuarioActualizado = await Usuario.findByIdAndUpdate(id,nuevoUsuario,{new:true})
+    return res.status(201).json({
+      status: true,
+      uid: usuarioActualizado.id,
+      name: usuarioActualizado.name,
+      surname: usuarioActualizado.surname,
+      email: usuarioActualizado.email,
+      password: usuarioActualizado.password,
+      message:"The user was modificated.",
+      token
     })
   } catch (err) {
     console.log(err)
@@ -101,15 +127,15 @@ export const deleteUser = async (req, res = response) => {
     res.status(401).send('Some error happened')
   }
 }
-export const revalidarToken = async(req,res=response)=>{
-  const {uid,email} = req.body
+export const revalidarToken = async (req, res = response) => {
+  const { uid, email } = req.body
 
   // Generar JWT
   const token = await generarJWT(uid, email)
   res.status(200).json({
-      status:true,
-      uid,
-      email,
-      token,
+    status: true,
+    uid,
+    email,
+    token,
   })
 }
