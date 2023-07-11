@@ -1,4 +1,8 @@
 import { response } from 'express'
+import { generarJWT } from '../utils/jwt.js'
+import { Usuario } from '../models/Usuario.js'
+import bcrypt from 'bcryptjs'
+
 export const getLogin = async (req, res = response) => {
   try {
     return res.status(404).send({
@@ -13,11 +17,32 @@ export const getLogin = async (req, res = response) => {
 }
 
 export const postRegisterUser = async (req, res = response) => {
+  const { name, surname, email, password } = req.body
   try {
-    return res.status(404).send({
-      id: '0',
-      state: false,
-      respuesta: 'API Not Implemented (API User)'
+    let usuario = await Usuario.findOne({ email })
+    if (usuario) {
+      return res.status(400).json({
+        status: false,
+        message: "Ya existe un usuario con ese email."
+      })
+    }
+    usuario = new Usuario({ name, surname, email, password })
+
+    // Encriptar contraseña
+    const salt = bcrypt.genSaltSync()
+    usuario.password = bcrypt.hashSync(password, salt)
+    await usuario.save()
+
+    // Generar JWT
+    const token = await generarJWT(usuario.id, usuario.name)
+    return res.status(201).json({
+      status: true,
+      uid: usuario.id,
+      name: usuario.name,
+      surname: usuario.surname,
+      email: usuario.email,
+      password: usuario.password,
+      token
     })
   } catch (err) {
     console.log(err)
