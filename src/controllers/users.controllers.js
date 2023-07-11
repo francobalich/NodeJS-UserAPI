@@ -149,3 +149,43 @@ export const revalidarToken = async (req, res = response) => {
     token,
   })
 }
+
+export const putImagesUser = async (req, res = response) => {
+  const id = req.params.id
+  const { imgs } = req.body
+  try {
+    let usuario = await Usuario.findById(id)
+
+    if (!usuario) {
+      return res.status(400).json({
+        status: false,
+        msg: "No existe un usuario con ese ID."
+      })
+    }
+    const nuevoUsuario = {
+      id,
+      name:usuario.name,
+      surname:usuario.surname,
+      email:usuario.email,
+      password:usuario.password,
+      images:imgs,
+    }
+    console.log(nuevoUsuario);
+    // Generar JWT
+    const token = await generarJWT(usuario.id, usuario.mail)
+    const usuarioActualizado = await Usuario.findByIdAndUpdate(id, nuevoUsuario, { new: true })
+    return res.status(201).json({
+      status: true,
+      uid: usuarioActualizado.id,
+      name: usuarioActualizado.name,
+      surname: usuarioActualizado.surname,
+      email: usuarioActualizado.email,
+      images:usuarioActualizado.images,
+      msg: "The user was modificated.",
+      token
+    })
+  } catch (err) {
+    console.log(err)
+    res.status(401).send('Some error happened')
+  }
+}
