@@ -10,7 +10,7 @@ export const getLogin = async (req, res = response) => {
     if (!usuario) {
       return res.status(400).json({
         status: false,
-        message: "No existe un usuario con ese email."
+        msg: "No existe un usuario con ese email."
       })
     }
 
@@ -20,7 +20,7 @@ export const getLogin = async (req, res = response) => {
     if (!validPassword) {
       return res.status(400).json({
         status: false,
-        message: "La contraseña es incorrecta."
+        msg: "La contraseña es incorrecta."
       })
     }
 
@@ -48,7 +48,7 @@ export const postRegisterUser = async (req, res = response) => {
     if (usuario) {
       return res.status(400).json({
         status: false,
-        message: "Ya existe un usuario con ese email."
+        msg: "Ya existe un usuario con ese email."
       })
     }
     usuario = new Usuario({ name, surname, email, password })
@@ -82,7 +82,7 @@ export const putModifiedUser = async (req, res = response) => {
     if (!usuario) {
       return res.status(400).json({
         status: false,
-        message: "No existe un usuario con ese ID."
+        msg: "No existe un usuario con ese ID."
       })
     }
     const nuevoUsuario = {
@@ -103,7 +103,7 @@ export const putModifiedUser = async (req, res = response) => {
       name: usuarioActualizado.name,
       surname: usuarioActualizado.surname,
       email: usuarioActualizado.email,
-      message: "The user was modificated.",
+      msg: "The user was modificated.",
       token
     })
   } catch (err) {
@@ -119,7 +119,7 @@ export const deleteUser = async (req, res = response) => {
     if (!usuario) {
       return res.status(400).json({
         status: false,
-        message: "No existe un usuario con ese ID."
+        msg: "No existe un usuario con ese ID."
       })
     }
     const usuarioEliminado = await Usuario.findByIdAndDelete(id)
@@ -130,7 +130,7 @@ export const deleteUser = async (req, res = response) => {
       name: usuarioEliminado.name,
       surname: usuarioEliminado.surname,
       email: usuarioEliminado.email,
-      message: "The user was eliminated.",
+      msg: "The user was eliminated.",
     })
   } catch (err) {
     console.log(err)
