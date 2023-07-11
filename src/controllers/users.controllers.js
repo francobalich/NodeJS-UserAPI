@@ -101,3 +101,15 @@ export const deleteUser = async (req, res = response) => {
     res.status(401).send('Some error happened')
   }
 }
+export const revalidarToken = async(req,res=response)=>{
+  const {uid,email} = req.body
+
+  // Generar JWT
+  const token = await generarJWT(uid, email)
+  res.status(200).json({
+      status:true,
+      uid,
+      name,
+      token,
+  })
+}
