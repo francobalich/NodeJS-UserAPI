@@ -8,14 +8,14 @@ export const userRouter = Router()
 
 userRouter.get('/renew', validarJWT, revalidarToken)
 
-userRouter.get('/',
+userRouter.post('/login',
   [
     check('email', 'El email es obligatorio.').isEmail(),
     check('password', 'La contraseña debe tener como minimo 6 caracteres.').isLength({ "min": 6 }),
     validarCampos
   ], getLogin)
 
-userRouter.post('/',
+userRouter.post('/register',
   [
     check('name', 'El nombre es obligatorio.').not().isEmpty(),
     check('surname', 'El apellido es obligatorio.').not().isEmpty(),
