@@ -21,7 +21,7 @@ const UsuarioSchema = Schema({
             alt: { type: String },
         }],
         required: true,
-        unique: true
+        unique: false
     },
     password: {
         type: String,
