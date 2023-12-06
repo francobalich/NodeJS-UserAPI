@@ -1,6 +1,6 @@
 # Servidor de APIs para manejo de usuarios (NodeJS)
 
-En este repositorio van a encontrar un proyecto que consiste en backend desarrollado con Node.JS para el almacenamiento de usuarios realizado por _Franco Adrian Balich_ únicamente con fines educativos por lo que la seguridad del mismo no está pulida en detalle.
+En este repositorio van a encontrar un proyecto que consiste en backend desarrollado con Node.JS para el almacenamiento de usuarios e imagenes para cada usuario. Este proyecto fue realizado por _Franco Adrian Balich_ únicamente con fines educativos por lo que la seguridad del mismo no está garantizada.
 
 `Se necesitará una base de datos MongoDB`
 
@@ -24,7 +24,9 @@ Para probar el proyecto primero deberán posicionarse dentro de la carpeta del p
 
 En primer lugar se deberá copiar el archivo `.env.example` y renombrarlo como `.env` y completar las variables de entorno `PORT, DB_CNN y SECRET_JWT_SEED`.
 
-En caso de no hacerlo el proyecto no se ejecutará por no tener el link de conexión con la base de datos MongoDB y faltara la seed para generar los Json Web Token.
+En caso de no hacerlo el proyecto no se ejecutará por no tener el link de conexión con la base de datos MongoDB y faltara la seed para generar los JSON Web Token.
+
+_De forma opcional_, tambien puede completar las variables de entorno `CLOUD_NAME, API_KEY y API_SECRET` de [Cloudinary](https://cloudinary.com/).
 
 Si no se ingresa un puerto, el proyecto se ejecutará por defecto en el puerto 3000.
 
@@ -48,4 +50,5 @@ npm run dev
 
 ## Autor
 
-- [@francobalich](https://www.github.com/francobalich)
+- 📌[@francobalich](https://www.github.com/francobalich)
+- 🔴[En directo por Twitch](https://www.twitch.tv/francolabs)
