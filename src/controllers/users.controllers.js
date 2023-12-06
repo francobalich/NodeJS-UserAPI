@@ -38,7 +38,7 @@ export const getLogin = async (req, res = response) => {
     })
   } catch (err) {
     console.log(err)
-    res.status(401).send('Some error happened')
+    res.status(401).send('Un error sucedio en la base de datos.')
   }
 }
 
